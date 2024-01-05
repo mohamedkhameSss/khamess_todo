@@ -13,7 +13,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Todo from "./Todo";
 // id
 import { v4 as uuidv4 } from "uuid";
-
+// context 
 import { todosContext } from "../contexts/todoContext";
 
 export default function TodoList() {
@@ -21,8 +21,8 @@ export default function TodoList() {
   const [titleInput, setTitleInput] = useState("");
   const [displayTypeTodos, setdisplayTypeTodos] = useState("all");
   useEffect(() => {
-    const storageTodos = JSON.parse(localStorage?.getItem("todos"));
-    setTodos(storageTodos ? storageTodos : []);
+    const storageTodos = JSON.parse(localStorage?.getItem("todos")) ?? [];
+    setTodos(storageTodos);
   }, []);
 
   const handelAddClick = () => {
@@ -107,7 +107,7 @@ export default function TodoList() {
                 fontSize: "25px",
               }}
             >
-              No Todos Aavilable
+              No Tasks Aavilable
             </Typography>
           ) : (
             todoRender
@@ -134,7 +134,7 @@ export default function TodoList() {
                   variant='contained'
                   disabled={titleInput.length <= 0}
                 >
-                  Add Todo
+                  Add Task
                 </Button>
               </Grid>
               <Grid item xs={8}>
@@ -143,7 +143,7 @@ export default function TodoList() {
                     width: "100%",
                   }}
                   id='outlined-basic'
-                  label='Write Your Todo'
+                  label='Write Your Task'
                   variant='outlined'
                   value={titleInput}
                   onChange={(e) => {

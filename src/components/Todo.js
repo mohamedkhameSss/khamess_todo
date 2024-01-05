@@ -20,7 +20,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-
+// Transition effect
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
@@ -81,9 +81,8 @@ const Todo = ({ todo }) => {
   return (
     <Card
       className='todoCard'
-      //   sx={{ minWidth: 275 }}
       style={{
-        backgroundColor: "#191b1f",
+        backgroundColor: `${todo.isCompleted ? "chocolate" : "#191b1f"}`,
         color: "white",
         marginTop: "20px",
       }}
@@ -100,7 +99,7 @@ const Todo = ({ todo }) => {
             >
               {todo.title}
             </Typography>
-            <Typography variant='h6' sx={{ textAlign: "left" }}>
+            <Typography sx={{ textAlign: "left", fontSize: "15px" }}>
               {todo.details}
             </Typography>
           </Grid>
@@ -128,7 +127,8 @@ const Todo = ({ todo }) => {
             >
               <CheckIcon fontSize='small' />
             </IconButton>
-            {/* isCompleted BUTTON  */}
+            {/* isCompleted BUTTON end */}
+            
             {/* UPDATE BUTTON  */}
             <IconButton
               className='iconButton'
@@ -143,6 +143,7 @@ const Todo = ({ todo }) => {
               <ModeEditOutlineOutlinedIcon fontSize='small' />
             </IconButton>
             {/* UPDATE BUTTON end */}
+
             {/* DELETE BUTTON  */}
             <IconButton
               className='iconButton'
@@ -157,6 +158,7 @@ const Todo = ({ todo }) => {
               <DeleteForeverOutlinedIcon fontSize='small' />
             </IconButton>
             {/* DELETE BUTTON end */}
+
             {/* UPDATE Dialog  */}
             <Dialog open={openUpdateDialog} onClose={handleUpdateClose}>
               <DialogTitle>UPDATE YOUR TODO</DialogTitle>
@@ -200,6 +202,7 @@ const Todo = ({ todo }) => {
               </DialogActions>
             </Dialog>
             {/* UPDATE Dialog end */}
+
             {/*DELETE Dialog  */}
             <Dialog
               open={open}
@@ -220,6 +223,7 @@ const Todo = ({ todo }) => {
               </DialogActions>
             </Dialog>
             {/*DELETE Dialog END */}
+
           </Grid>
         </Grid>
       </CardContent>
