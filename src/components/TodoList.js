@@ -41,7 +41,7 @@ export default function TodoList() {
     setdisplayTypeTodos(e.target.value);
   };
   const notCompletedTodos = useMemo(() => {
-    todos.filter(
+    return todos.filter(
       (t) => {
         return !t.isCompleted;
       },
@@ -49,7 +49,7 @@ export default function TodoList() {
     );
   });
   const completedTodos = useMemo(() => {
-    todos.filter(
+    return todos.filter(
       (t) => {
         return t.isCompleted;
       },
