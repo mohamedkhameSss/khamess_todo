@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useMemo } from "react";
 
 // design
 import Container from "@mui/material/Container";
@@ -13,7 +13,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Todo from "./Todo";
 // id
 import { v4 as uuidv4 } from "uuid";
-// context 
+// context
 import { todosContext } from "../contexts/todoContext";
 
 export default function TodoList() {
@@ -40,11 +40,21 @@ export default function TodoList() {
   const ChangingTodosState = (e) => {
     setdisplayTypeTodos(e.target.value);
   };
-  const notCompletedTodos = todos.filter((t) => {
-    return !t.isCompleted;
+  const notCompletedTodos = useMemo(() => {
+    todos.filter(
+      (t) => {
+        return !t.isCompleted;
+      },
+      [todos]
+    );
   });
-  const completedTodos = todos.filter((t) => {
-    return t.isCompleted;
+  const completedTodos = useMemo(() => {
+    todos.filter(
+      (t) => {
+        return t.isCompleted;
+      },
+      [todos]
+    );
   });
   let todosToBeREnder = todos;
 
