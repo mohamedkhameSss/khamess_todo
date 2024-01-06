@@ -144,7 +144,6 @@ export default function TodoList() {
         onClose={handleDeleteClose}
         aria-describedby='alert-dialog-slide-description'
       >
-        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-slide-description'>
             If you click agree you will delete it permanently.
