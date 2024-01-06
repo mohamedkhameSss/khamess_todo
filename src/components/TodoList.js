@@ -199,7 +199,7 @@ export default function TodoList() {
         </DialogActions>
       </Dialog>
       {/* UPDATE Dialog end */}
-      <Container maxWidth='sm'>
+      <Container style={{ height: "100%" }} maxWidth='sm'>
         <Card
           sx={{ minWidth: 275 }}
           style={{
