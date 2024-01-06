@@ -28,14 +28,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 export default function TodoList() {
+  // contexts
   const { todos, setTodos } = useContext(todosContext);
   const { showHideToast } = useContext(toastContext);
+  // usestate
   const [titleInput, setTitleInput] = useState("");
   const [displayTypeTodos, setdisplayTypeTodos] = useState("all");
   const [openDeleteDialoge, setOpenDeleteDialoge] = useState(false);
   const [DailogeTodo, setDialogeTodo] = useState(null);
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
-
+  // effect
   useEffect(() => {
     const storageTodos = JSON.parse(localStorage?.getItem("todos")) ?? [];
     setTodos(storageTodos);
@@ -114,8 +116,8 @@ export default function TodoList() {
       [todos]
     );
   });
+  // changed todos
   let todosToBeREnder = todos;
-
   if (displayTypeTodos === "completed") {
     todosToBeREnder = completedTodos;
   } else if (displayTypeTodos === "notcompleted") {
