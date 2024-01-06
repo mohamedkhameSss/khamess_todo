@@ -219,47 +219,14 @@ export default function TodoList() {
             <Divider
               light
               style={{
-                marginBottom: "20px",
+                marginBottom: "2px",
                 marginTop: "20px",
                 backgroundColor: "white",
               }}
             />
-            {/*main buttons */}
-            <ToggleButtonGroup
-              color='warning'
-              value={displayTypeTodos}
-              onChange={ChangingTodosState}
-              exclusive
-              aria-label='Platform'
-            >
-              <ToggleButton value='all'>All</ToggleButton>
-              <ToggleButton value='completed'>Completed</ToggleButton>
-              <ToggleButton value='notcompleted'>Not Completed</ToggleButton>
-            </ToggleButtonGroup>
-            {/*main buttons end */}
-            {/*all todos  */}
-            {todoRender.length === 0 ? (
-              <Typography
-                style={{
-                  width: "100%",
-                  height: "20vh",
-                  margin: "auto",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "white",
-                  fontSize: "25px",
-                }}
-              >
-                No Tasks Aavilable
-              </Typography>
-            ) : (
-              todoRender
-            )}
-            {/*all todos end */}
-            {/* Button + Add  */}
-            <CardContent>
-              <Grid container style={{ marginTop: "20px" }} spacing={2}>
+               {/* Button + Add  */}
+               <CardContent>
+              <Grid container  spacing={2}>
                 <Grid
                   item
                   xs={4}
@@ -298,6 +265,48 @@ export default function TodoList() {
               </Grid>
             </CardContent>
             {/* Button + Add end */}
+            <Divider
+              light
+              style={{
+                marginBottom: "15px",
+                marginTop: "2px",
+                backgroundColor: "white",
+              }}
+            />
+            {/*main buttons */}
+            <ToggleButtonGroup
+              color='warning'
+              value={displayTypeTodos}
+              onChange={ChangingTodosState}
+              exclusive
+              aria-label='Platform'
+            >
+              <ToggleButton value='all'>All</ToggleButton>
+              <ToggleButton value='completed'>Completed</ToggleButton>
+              <ToggleButton value='notcompleted'>Not Completed</ToggleButton>
+            </ToggleButtonGroup>
+            {/*main buttons end */}
+            {/*all todos  */}
+            {todoRender.length === 0 ? (
+              <Typography
+                style={{
+                  width: "100%",
+                  height: "20vh",
+                  margin: "auto",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "white",
+                  fontSize: "25px",
+                }}
+              >
+                No Tasks Aavilable
+              </Typography>
+            ) : (
+              todoRender
+            )}
+            {/*all todos end */}
+         
           </CardContent>
         </Card>
       </Container>
