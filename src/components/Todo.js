@@ -6,22 +6,14 @@ import CheckIcon from "@mui/icons-material/Check";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 // context 
-import { todosContext } from "../contexts/todoContext";
 import { toastContext } from "../contexts/toastContext";
 
-const Todo = ({ todo, showDelete, showUpdate }) => {
-  const { todos, setTodos } = useContext(todosContext);
+const Todo = ({ todo, showDelete, showUpdate,dispatch }) => {
   const { showHideToast } = useContext(toastContext);
+  
   // handels
   const handelCheckClick = () => {
-    const updatedTodos = todos.map((d) => {
-      if (d.id === todo.id) {
-        d.isCompleted = !d.isCompleted;
-      }
-      return d;
-    });
-    setTodos(updatedTodos);
-    localStorage?.setItem("todos", JSON.stringify(updatedTodos));
+    dispatch({type:"CheckUpdated",payload:todo})
     showHideToast("Changed successfully");
   };
   const handelOpenDeelteDailoge = () => {

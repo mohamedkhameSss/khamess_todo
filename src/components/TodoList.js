@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext, useEffect, useMemo } from "react";
+import { useState, useContext, useEffect, useMemo, useReducer } from "react";
 
 // design
 import Container from "@mui/material/Container";
@@ -11,11 +11,10 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 import Todo from "./Todo";
-// id
-import { v4 as uuidv4 } from "uuid";
 // context
-import { todosContext } from "../contexts/todoContext";
 import { toastContext } from "../contexts/toastContext";
+// Reducer 
+import todosReducer from "../reducers/todosReducer";
 // dialoge
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -23,14 +22,16 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+
 // Transition effect
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 export default function TodoList() {
   // contexts
-  const { todos, setTodos } = useContext(todosContext);
   const { showHideToast } = useContext(toastContext);
+  // reducer 
+  const [todos, dispatch] = useReducer(todosReducer, []);
   // usestate
   const [titleInput, setTitleInput] = useState("");
   const [displayTypeTodos, setdisplayTypeTodos] = useState("all");
@@ -39,8 +40,7 @@ export default function TodoList() {
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   // effect
   useEffect(() => {
-    const storageTodos = JSON.parse(localStorage?.getItem("todos")) ?? [];
-    setTodos(storageTodos);
+    dispatch({ type: "get" });
   }, []);
 
   // HANDELERS
@@ -52,19 +52,7 @@ export default function TodoList() {
     setOpenUpdateDialog(true);
   };
   const handelUpdateConfirm = () => {
-    const updatedTodos = todos?.map((t) => {
-      if (t.id === DailogeTodo.id) {
-        return {
-          ...t,
-          title: DailogeTodo.title,
-          details: DailogeTodo.details,
-        };
-      } else {
-        return t;
-      }
-    });
-    setTodos(updatedTodos);
-    localStorage?.setItem("todos", JSON.stringify(updatedTodos));
+    dispatch({ type: "Updated", payload: DailogeTodo });
     setOpenUpdateDialog(false);
     showHideToast("Task Updated Successfully");
   };
@@ -76,24 +64,13 @@ export default function TodoList() {
     setOpenDeleteDialoge(true);
   };
   const handelDeleteConfirm = () => {
-    const updatedTodos = todos.filter((t) => {
-      return t.id !== DailogeTodo.id;
-    });
-    setTodos(updatedTodos);
-    localStorage?.setItem("todos", JSON.stringify(updatedTodos));
+    dispatch({ type: "deleted", payload: DailogeTodo });
+
     setOpenDeleteDialoge(false);
     showHideToast("Task Deleted successfully");
   };
   const handelAddClick = () => {
-    const newTodo = {
-      id: uuidv4(),
-      title: titleInput,
-      details: "",
-      isCompleted: false,
-    };
-    const updatedTodos = [...todos, newTodo];
-    setTodos(updatedTodos);
-    localStorage?.setItem("todos", JSON?.stringify(updatedTodos));
+    dispatch({ type: "Added", payload: { newTitle: titleInput } });
     setTitleInput("");
     showHideToast("Task Added successfully");
   };
@@ -133,6 +110,7 @@ export default function TodoList() {
         todo={t}
         showDelete={handleDeleteopen}
         showUpdate={handleUpdateOpen}
+        dispatch={dispatch}
       />
     );
   });
@@ -224,9 +202,9 @@ export default function TodoList() {
                 backgroundColor: "white",
               }}
             />
-               {/* Button + Add  */}
-               <CardContent>
-              <Grid container  spacing={2}>
+            {/* Button + Add  */}
+            <CardContent>
+              <Grid container spacing={2}>
                 <Grid
                   item
                   xs={4}
@@ -306,7 +284,6 @@ export default function TodoList() {
               todoRender
             )}
             {/*all todos end */}
-         
           </CardContent>
         </Card>
       </Container>
