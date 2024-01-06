@@ -202,7 +202,11 @@ export default function TodoList() {
       <Container maxWidth='sm'>
         <Card
           sx={{ minWidth: 275 }}
-          style={{ backgroundColor: "darkcyan", color: "white" }}
+          style={{
+            backgroundColor: "darkcyan",
+            color: "white",
+            marginTop: "2.5rem",
+          }}
         >
           <CardContent>
             {/* title */}
