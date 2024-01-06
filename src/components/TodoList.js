@@ -205,7 +205,7 @@ export default function TodoList() {
           style={{
             backgroundColor: "darkcyan",
             color: "white",
-            marginTop: "2.5rem",
+            marginTop: "25%",
           }}
         >
           <CardContent>
